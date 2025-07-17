@@ -13,6 +13,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	bcServer = make(chan []Block)
+
 	go func() {
 		t := time.Now()
 		genesisBlock := Block{0, t.String(), 0, "", ""}

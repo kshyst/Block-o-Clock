@@ -15,6 +15,9 @@ type Message struct {
 	BPM int32
 }
 
+// bcServer handles incoming concurrent Blocks
+var bcServer chan []Block
+
 func run() error {
 	mux := makeMuxRouter()
 	httpAddr := os.Getenv("ADDR")
