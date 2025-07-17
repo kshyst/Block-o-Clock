@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"io"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"time"
@@ -18,7 +19,15 @@ type Message struct {
 // bcServer handles incoming concurrent Blocks
 var bcServer chan []Block
 
-func run() error {
+func runTCPServer() error {
+	_, err := net.Listen("tcp", ":"+os.Getenv("ADDR"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func runHTTPServer() error {
 	mux := makeMuxRouter()
 	httpAddr := os.Getenv("ADDR")
 	log.Println("Listening on ", os.Getenv("ADDR"))
